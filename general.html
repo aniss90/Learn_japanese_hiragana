@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلم الهيراغانا - نظرة عامة</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #E7D1D1;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #C48B8B;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .back-btn {
+            background-color: #DBB9B9;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .hiragana-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .hiragana-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid #ddd;
+        }
+        .hiragana-card.learned {
+            border-color: #388e3c;
+            background-color: #e8f5e9;
+        }
+        .hiragana-char {
+            font-size: 2rem;
+            margin: 5px 0;
+        }
+        .romaji {
+            font-weight: bold;
+            color: #d32f2f;
+        }
+        .practice-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .practice-btn {
+            background-color: #C16969;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .practice-btn:hover {
+            background-color: #BC434F;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .achievements {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .achievement-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 200px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .achievement-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #C16969;
+            margin: 10px 0;
+        }
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            margin: 15px 0;
+            height: 20px;
+        }
+        .progress-bar {
+            background-color: #d32f2f;
+            height: 100%;
+            border-radius: 20px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>جميع أحرف الهيراغانا</h1>
+            <p>46 حرفاً أساسياً للبدء في تعلم اليابانية</p>
+        </header>
+
+        <a href="index.html" class="back-btn">العودة للصفحة الرئيسية</a>
+        <div class="practice-section">
+            <h2>جاهز للتمرين؟</h2>
+            <p>اختبر معرفتك بالأحرف التي تعلمتها</p>
+            <a href="practice.html" class="practice-btn">تمرن الآن</a>
+        </div>
+        <div class="achievements">
+            <div class="achievement-box">
+                <h3>المراحل المكتملة</h3>
+                <div class="achievement-value" id="completedStages">0</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="stagesProgress"></div>
+                </div>
+                <p>من 10 مراحل</p>
+            </div>
+            <div class="achievement-box">
+                <h3>الأحرف المتقنة</h3>
+                <div class="achievement-value" id="learnedChars">0</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="charsProgress"></div>
+                </div>
+                <p>من 46 حرفاً</p>
+            </div>
+        </div>
+
+        
+
+        <div class="content-section">
+            <h2>كل أحرف الهيراغانا</h2>
+            <div class="hiragana-grid" id="allCharsContainer"></div>
+        </div>
+
+
+    </div>
+
+    <script>
+        // جميع أحرف الهيراغانا الأساسية (46 حرفاً)
+        const hiraganaData = [
+            { char: 'あ', romaji: 'a' }, { char: 'い', romaji: 'i' }, { char: 'う', romaji: 'u' }, 
+            { char: 'え', romaji: 'e' }, { char: 'お', romaji: 'o' }, { char: 'か', romaji: 'ka' }, 
+            { char: 'き', romaji: 'ki' }, { char: 'く', romaji: 'ku' }, { char: 'け', romaji: 'ke' }, 
+            { char: 'こ', romaji: 'ko' }, { char: 'さ', romaji: 'sa' }, { char: 'し', romaji: 'shi' }, 
+            { char: 'す', romaji: 'su' }, { char: 'せ', romaji: 'se' }, { char: 'そ', romaji: 'so' }, 
+            { char: 'た', romaji: 'ta' }, { char: 'ち', romaji: 'chi' }, { char: 'つ', romaji: 'tsu' }, 
+            { char: 'て', romaji: 'te' }, { char: 'と', romaji: 'to' }, { char: 'な', romaji: 'na' }, 
+            { char: 'に', romaji: 'ni' }, { char: 'ぬ', romaji: 'nu' }, { char: 'ね', romaji: 'ne' }, 
+            { char: 'の', romaji: 'no' }, { char: 'は', romaji: 'ha' }, { char: 'ひ', romaji: 'hi' }, 
+            { char: 'ふ', romaji: 'fu' }, { char: 'へ', romaji: 'he' }, { char: 'ほ', romaji: 'ho' }, 
+            { char: 'ま', romaji: 'ma' }, { char: 'み', romaji: 'mi' }, { char: 'む', romaji: 'mu' }, 
+            { char: 'め', romaji: 'me' }, { char: 'も', romaji: 'mo' }, { char: 'や', romaji: 'ya' }, 
+            { char: 'ゆ', romaji: 'yu' }, { char: 'よ', romaji: 'yo' }, { char: 'ら', romaji: 'ra' }, 
+            { char: 'り', romaji: 'ri' }, { char: 'る', romaji: 'ru' }, { char: 'れ', romaji: 're' }, 
+            { char: 'ろ', romaji: 'ro' }, { char: 'わ', romaji: 'wa' }, { char: 'を', romaji: 'wo' }, 
+            { char: 'ん', romaji: 'n' }
+        ];
+
+        // تحميل البيانات المحفوظة
+        const learnedChars = JSON.parse(localStorage.getItem('learnedChars')) || [];
+        const completedStages = JSON.parse(localStorage.getItem('completedStages')) || [];
+        
+        // عرض الإحصائيات
+        document.getElementById('completedStages').textContent = completedStages.length;
+        document.getElementById('learnedChars').textContent = learnedChars.length;
+        document.getElementById('stagesProgress').style.width = `${(completedStages.length / 10) * 100}%`;
+        document.getElementById('charsProgress').style.width = `${(learnedChars.length / 46) * 100}%`;
+        
+        // عرض الأحرف المتعلمة
+        const learnedCharsContainer = document.getElementById('learnedCharsContainer');
+        learnedChars.forEach(char => {
+            const charData = hiraganaData.find(c => c.char === char);
+            if (charData) {
+                const card = document.createElement('div');
+                card.className = 'hiragana-card learned';
+                card.innerHTML = `
+                    <div class="hiragana-char">${charData.char}</div>
+                    <div class="romaji">${charData.romaji}</div>
+                `;
+                learnedCharsContainer.appendChild(card);
+            }
+        });
+        
+        // عرض جميع الأحرف
+        const allCharsContainer = document.getElementById('allCharsContainer');
+        hiraganaData.forEach(char => {
+            const card = document.createElement('div');
+            card.className = `hiragana-card ${learnedChars.includes(char.char) ? 'learned' : ''}`;
+            card.innerHTML = `
+                <div class="hiragana-char">${char.char}</div>
+                <div class="romaji">${char.romaji}</div>
+            `;
+            allCharsContainer.appendChild(card);
+        });
+    </script>
+</body>
+</html>
